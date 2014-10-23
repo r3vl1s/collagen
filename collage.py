@@ -2,6 +2,7 @@ from PIL import Image
 import random
 import os
 import os.path
+import imghdr
 
 def canvas_create(width,height):
     #create white/transparent canvas
@@ -23,7 +24,7 @@ def unique_name():
     return name
 
 def pick_segment(segment_path):
-    segments = os.listdir(segment_path)
+    segments = [item for item in os.listdir(segment_path) if imghdr.what(os.path.join(segment_path,item))]
     segment_name = os.path.join(segment_path,random.choice(segments))
     segment = Image.open(segment_name)
     return segment

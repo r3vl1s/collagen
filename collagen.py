@@ -34,7 +34,7 @@ def delete_folder_files(folder):
     for f in os.listdir(folder):
         file_path = os.path.join(folder, f)
         try:
-            if os.path.isfile(file_path):
+            if imghdr.what(file_path):
                 os.unlink(file_path)
         except Exception as e:
             print(e)
