@@ -1,0 +1,12 @@
+---
+:segments_folder: segments
+:segments_per_image: 5
+:felzenszwalb:
+    :scale: 2500
+    :sigma: 0.5
+    :min_size: 100
+:collage:
+    :number_of_collages: 1
+    :number_of_pastes: 100
+    :height: 1920
+    :width: 1280
