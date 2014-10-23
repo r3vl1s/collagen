@@ -3,13 +3,15 @@ collagen
 
 collage generator
 
-Requirements
--python3
--pyyaml
--scipy
--numpy
--scikit-image
--Pillow
+Requirements  
+--------
+-python3  
+-pyyaml  
+-scipy   
+-numpy  
+-scikit-image  
+-Pillow  
 
-Example
+Example  
+--------
 python collagen.py example collages
