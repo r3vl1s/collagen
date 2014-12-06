@@ -16,18 +16,15 @@ MAX_COLLAGE_PASTES = config[':collage'][':number_of_pastes']
 COLLAGE_W = config[':collage'][':width']
 COLLAGE_H = config[':collage'][':height']
 
-#image = os.path.join(os.environ['HOME'],'collagen/2.jpg')
-#output_folder = os.path.join(os.environ['HOME'],'collagen/segments/')
-source_image_folder = sys.argv[1]
-output_folder = sys.argv[2]
+def isImage(input_path):
+    return imghdr.what(input_path)
 
 def segment_images(source_image_folder,segment_path):
     #TODO add information about how many images segmented
     images = os.listdir(source_image_folder)
     for image in images:
         image_path = os.path.join(source_image_folder,image)
-        image_type = imghdr.what(image_path)
-        if image_type:
+        if isImage(image_path):
             segments.segments(image_path, SEGMENTS_PER_IMAGE ,SEGMENT_PATH)
 
 def delete_folder_files(folder):
@@ -39,10 +36,34 @@ def delete_folder_files(folder):
         except Exception as e:
             print(e)
 
-segment_images(source_image_folder, SEGMENT_PATH)
 
-for i in range(NUMBER_OF_COLLAGES):
-    collage.collage(SEGMENT_PATH,output_folder,MAX_COLLAGE_PASTES,COLLAGE_W,COLLAGE_H)
+if __name__ == "__main__":
 
-delete_folder_files(SEGMENT_PATH)
+    #parse arguments
+    try:
+        source_image_folder = sys.argv[1]
+    except IndexError:
+        print("usage: python3 collagen.py [source folder] [output folder]")
+        sys.exit(1)
+        
+    if not os.path.isdir(source_image_folder):
+        print("Error: Not a folder. Please specify a source folder.")
+        sys.exit(1)
+
+    try:
+        output_folder = sys.argv[1]
+    except IndexError:
+        print("No output folder specified.")
+        sys.exit(1)
+
+    if not os.path.isdir(output_folder):
+        print("Error: Not a folder. Please specify an output folder.")
+        sys.exit(1)
+
+    segment_images(source_image_folder, SEGMENT_PATH)
+
+    for i in range(NUMBER_OF_COLLAGES):
+        collage.collage(SEGMENT_PATH,output_folder,MAX_COLLAGE_PASTES,COLLAGE_W,COLLAGE_H)
+
+    delete_folder_files(SEGMENT_PATH)
 

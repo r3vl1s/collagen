@@ -1,17 +1,20 @@
 collagen
 ========
 
-collage generator
+Collagen uses image segmentation algorithms to make collages
 
-Requirements  
---------
--python3  
--pyyaml  
--scipy   
--numpy  
--scikit-image  
--Pillow  
+**Examples** 
+http://notidaho.github.io/2013/03/30/img_cuts/
 
-Example  
+**Requirements**
 --------
-python collagen.py example collages
+ - python 3  
+ - pyyaml  
+ - scipy   
+ - numpy  
+ - scikit-image  
+ - Pillow  
+
+**Usage**  
+--------
+python3 collagen.py [source images folder] [output folder]

@@ -5,6 +5,7 @@ import yaml
 from PIL import Image, ImageOps
 from random import choice
 from skimage.segmentation import felzenszwalb
+from skimage.segmentation import slic
 from skimage.data import lena
 from skimage.util import img_as_float
 
@@ -15,6 +16,11 @@ config = yaml.safe_load(config_file)
 SCALE = config[':felzenszwalb'][':scale']
 SIGMA = config[':felzenszwalb'][':sigma'] 
 MIN_SIZE = config[':felzenszwalb'][':min_size'] 
+
+#constants for slic
+#N_SEGMENTS = config[':slic'][':n_segments']
+#COMPACTNESS = config[':slic'][':compactness']
+#SIGMA = config[':slic'][':sigma']
 
 def label_size(label,imarray):
     return (imarray == label).sum()
@@ -32,12 +38,13 @@ def n_masks(im,n):
     im1 = img_as_float(im[::2, ::2])
 
     segments_fz = felzenszwalb(im1,SCALE,SIGMA,MIN_SIZE)
+    #segments_fz = slic(im1,N_SEGMENTS,COMPACTNESS,SIGMA)
     labels = np.unique(segments_fz)
     labelSizes = sorted_label_sizes(labels,segments_fz)
 
     #print('# segments ' + str(len(labels)))
 
-    largest_n_labels = labelSizes[-n:]
+    largest_n_labels = labelSizes[-n-5:-5]
 
     masks=[]
     for label in largest_n_labels:
