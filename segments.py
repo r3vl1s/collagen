@@ -1,46 +1,57 @@
+'''
+segments.py segments an image using image segmentation algorithms
+(currently felzenszwalb or slic) and returns those segments as transparent pngs.
+
+'''
+
 import numpy as np
 import os
 import os.path
-import yaml
+import utils
 from PIL import Image, ImageOps
 from random import choice
 from skimage.segmentation import felzenszwalb
 from skimage.segmentation import slic
-from skimage.data import lena
 from skimage.util import img_as_float
-
-config_file = open('config.yml')
-config = yaml.safe_load(config_file)
-
-#constants for felzenszwalb segmentation function
-SCALE = config[':felzenszwalb'][':scale']
-SIGMA = config[':felzenszwalb'][':sigma'] 
-MIN_SIZE = config[':felzenszwalb'][':min_size'] 
-
-#constants for slic
-#N_SEGMENTS = config[':slic'][':n_segments']
-#COMPACTNESS = config[':slic'][':compactness']
-#SIGMA = config[':slic'][':sigma']
 
 def label_size(label,imarray):
     return (imarray == label).sum()
 
 def sorted_label_sizes(labels, imarray):
     label_list = []
+
     for label in labels:
         label_list.append([label,label_size(label,imarray)])
     label_list.sort(key=lambda l:l[1])
     return label_list
 
-def n_masks(im,n):
+def mask_felz(image, config):
+    #constants for felzenszwalb segmentation function
+    scale = config[':felzenszwalb'][':scale']
+    sigma = config[':felzenszwalb'][':sigma'] 
+    min_size = config[':felzenszwalb'][':min_size'] 
+
+    segments = felzenszwalb(image, scale, sigma, min_size)
+    return segments
+
+def mask_slic(image, config):
+    #constants for slic
+    n_segments = config[':slic'][':n_segments']
+    compactness = config[':slic'][':compactness']
+    sigma = config[':slic'][':sigma']
+
+    segments = slic(image, n_segments, compactness, sigma)
+    return segments
+
+def n_masks(im,n, config):
     #returns n masks of largest segments
     im = np.array(im, dtype=np.uint8)
     im1 = img_as_float(im[::2, ::2])
 
-    segments_fz = felzenszwalb(im1,SCALE,SIGMA,MIN_SIZE)
-    #segments_fz = slic(im1,N_SEGMENTS,COMPACTNESS,SIGMA)
-    labels = np.unique(segments_fz)
-    labelSizes = sorted_label_sizes(labels,segments_fz)
+    segments = mask_felz(im1, config)
+    #segments = mask_slic(im1, config)
+    labels = np.unique(segments)
+    labelSizes = sorted_label_sizes(labels,segments)
 
     #print('# segments ' + str(len(labels)))
 
@@ -49,14 +60,18 @@ def n_masks(im,n):
     masks=[]
     for label in largest_n_labels:
         im2 = np.zeros(im.shape,dtype=np.uint8)
-        im2[segments_fz == label[0]] = [255,255,255]
+        im2[segments == label[0]] = [255,255,255]
         masks.append(Image.fromarray(im2))
     return masks
 
 def segments(source_image_location,n,output_folder):
     #save n largest transparent segments to folder
-    im = Image.open(source_image_location)
-    masks= n_masks(im,n)
+   
+    config = utils.load_config()
+    
+    img = Image.open(source_image_location)
+    im = img.convert('RGB')
+    masks= n_masks(im,n, config)
     for i,mask in enumerate(masks):
         mask = mask.convert('L')
         bbox = mask.getbbox()
