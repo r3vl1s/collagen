@@ -38,7 +38,7 @@ def get_ext(path):
     return os.path.splitext(basename)[1]
 
 def load_config():
-    config_path = 'config.yml'
+    config_path = os.path.join(os.path.realpath('..'),'config/config.yml')
     with open(config_path) as config_file:
         config = yaml.safe_load(config_file)
     return config

@@ -9,6 +9,7 @@ import collage
 import sys
 import utils
 
+
 def segment_images(source_image_folder,segment_path, segments_per_image):
     
     #TODO add information about how many images segmented
@@ -24,10 +25,11 @@ def collagen(source_folder, output_folder):
 
     num_collages = config[':collage'][':number_of_collages']
     max_pastes = config[':collage'][':number_of_pastes']
-    segment_path = config[':segments_folder'] 
     segments_per_image = config[':segments_per_image'] 
     collage_width = config[':collage'][':width']
     collage_height = config[':collage'][':height']
+    segment_path = os.path.join(os.path.realpath('..'), config[':segments_folder'])
+    
 
     segment_images(source_folder, segment_path, segments_per_image)
 
