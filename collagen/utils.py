@@ -14,6 +14,10 @@ COLLAGEN_DIR = os.path.abspath(__file__ + "/../../")
 def is_image(input_path):
     return imghdr.what(input_path)
 
+def file_to_list(path):
+    with open(path) as f:
+        return f.read().splitlines()
+
 def delete_file(file_path):
     try:
         if imghdr.what(file_path):

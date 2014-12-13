@@ -1,5 +1,9 @@
 ---
 :segments_folder: data/segments
+:source_image_folder: data/source_images
+:output_image_folder: collages
+:tags_file: data/tags
+:blogs_file: data/blogs
 :segments_per_image: 5
 :felzenszwalb:
     :scale: 500
