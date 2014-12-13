@@ -10,7 +10,6 @@ import yaml
 import os
 import os.path
 from collagen import utils
-import argparse
 
 def load_config():
     config = utils.load_config('tumbl_config')
