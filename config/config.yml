@@ -1,5 +1,5 @@
 ---
-:segments_folder: segments
+:segments_folder: data/segments
 :segments_per_image: 5
 :felzenszwalb:
     :scale: 500

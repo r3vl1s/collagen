@@ -9,6 +9,8 @@ import urllib.request
 import shutil
 import yaml
 
+COLLAGEN_DIR = os.path.abspath(__file__ + "/../../")
+
 def is_image(input_path):
     return imghdr.what(input_path)
 
@@ -37,8 +39,11 @@ def get_ext(path):
     basename = os.path.basename(path)
     return os.path.splitext(basename)[1]
 
-def load_config():
-    config_path = os.path.join(os.path.realpath('..'),'config/config.yml')
+def load_config(which_conf):
+    if which_conf == 'config':
+        config_path = os.path.join(COLLAGEN_DIR, 'config/config.yml')
+    elif which_conf == 'tumbl_config':
+        config_path = os.path.join(COLLAGEN_DIR, 'config/tumbl_conf.yml')
     with open(config_path) as config_file:
         config = yaml.safe_load(config_file)
     return config

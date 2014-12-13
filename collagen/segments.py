@@ -7,7 +7,7 @@ segments.py segments an image using image segmentation algorithms
 import numpy as np
 import os
 import os.path
-import utils
+from collagen import utils
 from PIL import Image, ImageOps
 from random import choice
 from skimage.segmentation import felzenszwalb
@@ -55,7 +55,7 @@ def n_masks(im,n, config):
 
     #print('# segments ' + str(len(labels)))
 
-    largest_n_labels = labelSizes[-n-5:-5]
+    largest_n_labels = labelSizes[-n-4:-2]
 
     masks=[]
     for label in largest_n_labels:
@@ -64,11 +64,9 @@ def n_masks(im,n, config):
         masks.append(Image.fromarray(im2))
     return masks
 
-def segments(source_image_location,n,output_folder):
+def segments(source_image_location,n,output_folder, config):
     #save n largest transparent segments to folder
    
-    config = utils.load_config()
-    
     img = Image.open(source_image_location)
     im = img.convert('RGB')
     masks= n_masks(im,n, config)

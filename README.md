@@ -1,9 +1,9 @@
 collagen
 ========
 
-Collagen uses image segmentation algorithms to make collages
+Collagen currently uses image segmentation to generate collages
 
-**Examples** 
+**Process** 
 http://notidaho.github.io/2013/03/30/img_cuts/
 
 **Requirements**
@@ -14,11 +14,16 @@ http://notidaho.github.io/2013/03/30/img_cuts/
  - numpy  
  - scikit-image  
  - Pillow  
+ - python-tumblpy (optional: for interacting with tumblr)
 
 **Usage**  
 --------
-python3 collagen.py [source images folder] [output folder]
+Settings are in the config directory. 
+Use the following command to generate a collage:
 
-**Sample Output**
+python3 collagen-cli.py [source images folder] [output folder]
+
+**Generated Collage**
 --------
 ![](http://41.media.tumblr.com/492bc23a2183e3eb1bbb8171e2e66781/tumblr_ngcauoLgWu1tl1o39o1_1280.png)
+

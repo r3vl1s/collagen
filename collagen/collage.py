@@ -35,6 +35,8 @@ def pick_segment(segment_path):
 
 def collage(segment_path,output_folder,max_pastes,width,height):
 
+    print('Making collage...')
+
     N = max_pastes
     canvas = canvas_create(width,height)
 
