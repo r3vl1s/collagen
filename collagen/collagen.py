@@ -8,7 +8,6 @@ from collagen import segments
 from collagen import collage
 import sys
 from collagen import utils
-import argparse
 
 COLLAGEN_DIR = os.path.abspath(__file__ + "/../../")
 
