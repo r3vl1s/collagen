@@ -14,14 +14,14 @@ import argparse
 
 def load_config():
     config = utils.load_config('tumbl_config')
-    CONSUMER_KEY = config[':consumer_key'] 
-    CONSUMER_SECRET = config[':consumer_secret'] 
-    TOKEN = config[':token'] 
-    TOKEN_SECRET = config[':token_secret'] 
-    DEFAULT_N = config[':default_n']
-    t = Tumblpy(CONSUMER_KEY,CONSUMER_SECRET, TOKEN, TOKEN_SECRET)
+    consumer_KEY = config[':consumer_key'] 
+    consumer_secret = config[':consumer_secret'] 
+    token = config[':token'] 
+    token_secret = config[':token_secret'] 
+    default_n = config[':default_n']
+    t = Tumblpy(consumer_KEY,consumer_secret, token, token_secret)
     blog_url = t.post('user/info')['user']['blogs'][0]['url']
-    return t, DEFAULT_N, blog_url
+    return t, default_n, blog_url
 
 #post photo to tumblr
 def post_photo(image_path, tumbl_object, url, tags):
