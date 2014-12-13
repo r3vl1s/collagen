@@ -63,16 +63,3 @@ def get_blog_images(tumbl_object, blog, folder, n):
 
 
 
-if __name__ == "__main__":
-
-    src_folder = 'source_images'
-    tags = 'collagen, collectible'
-    img_path = 'collages/20141205T193014191221.png'
-    blog_url = t.post('user/info')['user']['blogs'][0]['url']
-    lpm = 'lauren-p-m.tumblr.com/'
-
-    t = Tumblpy(CONSUMER_KEY,CONSUMER_SECRET, TOKEN, TOKEN_SECRET)
-
-    #download_tagged_images(t, 'cage', src_folder) 
-    #download_blog_images(t, lpm, src_folder) 
-    #photo_post(img_path, t, blog_url, tags)
