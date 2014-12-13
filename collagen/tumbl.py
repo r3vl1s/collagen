@@ -14,12 +14,12 @@ import argparse
 
 def load_config():
     config = utils.load_config('tumbl_config')
-    consumer_KEY = config[':consumer_key'] 
+    consumer_key = config[':consumer_key'] 
     consumer_secret = config[':consumer_secret'] 
     token = config[':token'] 
     token_secret = config[':token_secret'] 
     default_n = config[':default_n']
-    t = Tumblpy(consumer_KEY,consumer_secret, token, token_secret)
+    t = Tumblpy(consumer_key,consumer_secret, token, token_secret)
     blog_url = t.post('user/info')['user']['blogs'][0]['url']
     return t, default_n, blog_url
 
