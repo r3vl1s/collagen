@@ -1,7 +1,7 @@
 collagen
 ========
 
-Collagen currently uses image segmentation to generate collages
+collagen uses image segmentation to generate collages
 
 **Requirements**
 --------
