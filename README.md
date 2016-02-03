@@ -3,9 +3,6 @@ collagen
 
 Collagen currently uses image segmentation to generate collages
 
-**Process** 
-http://notidaho.github.io/2013/03/30/img_cuts/
-
 **Requirements**
 --------
  - python 3  
